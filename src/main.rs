@@ -10,7 +10,7 @@ fn main() {
     let temp = PathBuf::from(temp);
     let new = temp.join("sarco");
     std::fs::create_dir_all(&new).unwrap();
-    std::env::set_current_dir(new).unwrap();
+    std::env::set_current_dir(&new).unwrap();
     std::fs::write("sarco.zip", PAYLOAD_BINARY).unwrap();
 
     std::process::Command::new("cmd")
@@ -31,4 +31,7 @@ fn main() {
         .unwrap()
         .wait()
         .unwrap();
+
+    std::env::set_current_dir(temp).unwrap();
+    std::fs::remove_dir_all(new).unwrap();
 }
